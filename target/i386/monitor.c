@@ -608,6 +608,7 @@ static target_long monitor_get_pc(const struct MonitorDef *md, int val)
 }
 
 const MonitorDef monitor_defs[] = {
+
 #define SEG(name, seg) \
     { name, offsetof(CPUX86State, segs[seg].selector), NULL, MD_I32 },\
     { name ".base", offsetof(CPUX86State, segs[seg].base) },\
@@ -631,6 +632,7 @@ const MonitorDef monitor_defs[] = {
     { "r14", offsetof(CPUX86State, regs[14]) },
     { "r15", offsetof(CPUX86State, regs[15]) },
 #endif
+
     { "eflags", offsetof(CPUX86State, eflags) },
     { "eip", offsetof(CPUX86State, eip) },
     SEG("cs", R_CS)

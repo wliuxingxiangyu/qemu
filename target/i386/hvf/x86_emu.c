@@ -1461,6 +1461,9 @@ void store_regs(struct CPUState *cpu)
 
 bool exec_instruction(struct CPUX86State *env, struct x86_decode *ins)
 {
+	printf("hz- x86_emu.c   ins->addressing_size:%d   ins->cmd: %d        ins->opcode[0]:  %x ",
+			ins->addressing_size,             ins->cmd,                      ins->opcode[0]);
+
     /*if (hvf_vcpu_id(cpu))
     printf("%d, %llx: exec_instruction %s\n", hvf_vcpu_id(cpu),  RIP(cpu),
           decode_cmd_to_string(ins->cmd));*/

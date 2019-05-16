@@ -68,7 +68,11 @@ expand-objs = $(strip $(sort $(filter %.o,$1)) \
 %.o: %.c
 	$(call quiet-command,$(CC) $(QEMU_LOCAL_INCLUDES) $(QEMU_INCLUDES) \
 	       $(QEMU_CFLAGS) $(QEMU_DGFLAGS) $(CFLAGS) $($@-cflags) \
-	       -c -o $@ $<,"CC","$(TARGET_DIR)$@")
+	       -c -o $@ $<,"CC ","$(TARGET_DIR)$@ \
+           \nQEMU_LOCAL_INCLUDES:$(QEMU_LOCAL_INCLUDES) \
+           \nQEMU_INCLUDES:$(QEMU_INCLUDES) \
+           \n"$<":$< \
+           hz-\n")
 %.o: %.rc
 	$(call quiet-command,$(WINDRES) -I. -o $@ $<,"RC","$(TARGET_DIR)$@")
 
@@ -76,29 +80,39 @@ expand-objs = $(strip $(sort $(filter %.o,$1)) \
 # must link with the C++ compiler, not the plain C compiler.
 LINKPROG = $(or $(CXX),$(CC))
 
+#define LINK function  hz-
 LINK = $(call quiet-command, $(LINKPROG) $(QEMU_LDFLAGS) $(QEMU_CFLAGS) $(CFLAGS) $(LDFLAGS) -o $@ \
        $(call process-archive-undefs, $1) \
-       $(version-obj-y) $(call extract-libs,$1) $(LIBS),"LINK","$(TARGET_DIR)$@")
+       $(version-obj-y) \
+       $(call extract-libs,$1) \
+       $(LIBS),"LINK    ","$(TARGET_DIR)$@  \
+       \n LINKPROG=$(LINKPROG)  \n  QEMU_LDFLAGS=$(QEMU_LDFLAGS)  \n QEMU_CFLAGS=$(QEMU_CFLAGS) \
+       \n CFLAGS=$(CFLAGS)  \n LDFLAGS=$(LDFLAGS) -o $@ \
+       \n  process-archive-undefs=$(call process-archive-undefs, $1)  \n  "$1"=$1\
+        \n version-obj-y=$(version-obj-y) \
+       \n extract-libs=$(call extract-libs,$1) \
+       hz-" \
+       )
 
 %.o: %.S
 	$(call quiet-command,$(CCAS) $(QEMU_LOCAL_INCLUDES) $(QEMU_INCLUDES) \
 	       $(QEMU_CFLAGS) $(QEMU_DGFLAGS) $(CFLAGS) \
-	       -c -o $@ $<,"CCAS","$(TARGET_DIR)$@")
+	       -c -o $@ $<,"CCAS ","$(TARGET_DIR)$@  hz-")
 
 %.o: %.cc
 	$(call quiet-command,$(CXX) $(QEMU_LOCAL_INCLUDES) $(QEMU_INCLUDES) \
 	       $(QEMU_CXXFLAGS) $(QEMU_DGFLAGS) $(CFLAGS) $($@-cflags) \
-	       -c -o $@ $<,"CXX","$(TARGET_DIR)$@")
+	       -c -o $@ $<,"CXX ","$(TARGET_DIR)$@  hz-")
 
 %.o: %.cpp
 	$(call quiet-command,$(CXX) $(QEMU_LOCAL_INCLUDES) $(QEMU_INCLUDES) \
 	       $(QEMU_CXXFLAGS) $(QEMU_DGFLAGS) $(CFLAGS) $($@-cflags) \
-	       -c -o $@ $<,"CXX","$(TARGET_DIR)$@")
+	       -c -o $@ $<,"CXX  ","$(TARGET_DIR)$@  hz-")
 
 %.o: %.m
 	$(call quiet-command,$(OBJCC) $(QEMU_LOCAL_INCLUDES) $(QEMU_INCLUDES) \
 	       $(QEMU_CFLAGS) $(QEMU_DGFLAGS) $(CFLAGS) $($@-cflags) \
-	       -c -o $@ $<,"OBJC","$(TARGET_DIR)$@")
+	       -c -o $@ $<,"OBJC","$(TARGET_DIR)$@ hz-")
 
 %.o: %.dtrace
 	$(call quiet-command,dtrace -o $@ -G -s $<,"GEN","$(TARGET_DIR)$@")
@@ -126,12 +140,13 @@ modules:
 %.a:
 	$(call quiet-command,rm -f $@ && $(AR) rcs $@ $^,"AR","$(TARGET_DIR)$@")
 
-# Usage: $(call quiet-command,command and args,"NAME","args to print")
+# Usage: $(call quiet-command,command and args,"NAME","args to print") 
 # This will run "command and args", and either:
 #  if V=1 just print the whole command and args
 #  otherwise print the 'quiet' output in the format "  NAME     args to print"
 # NAME should be a short name of the command, 7 letters or fewer.
 # If called with only a single argument, will print nothing in quiet mode.
+#define fuction hz-
 quiet-command = $(if $(V),$1,$(if $(2),@printf "  %-7s %s\n" $2 $3 && $1, @$1))
 
 # cc-option

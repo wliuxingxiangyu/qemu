@@ -2098,11 +2098,12 @@ static void decode_opcodes(CPUX86State *env, struct x86_decode *decode)
 uint32_t decode_instruction(CPUX86State *env, struct x86_decode *decode)
 {
     memset(decode, 0, sizeof(*decode));
-    decode_prefix(env, decode);
+    decode_prefix(env, decode);//prefix
     set_addressing_size(env, decode);
     set_operand_size(env, decode);
 
-    decode_opcodes(env, decode);
+    decode_opcodes(env, decode);//opcode
+    print("hz- x86_decode.c 2106   decode->len=%d", decode->len );
 
     return decode->len;
 }

@@ -4647,7 +4647,7 @@ static target_ulong disas_insn(DisasContext *s, CPUState *cpu)
     s->aflag = aflag;
     s->dflag = dflag;
 
-    /* now check op code */
+    /* now check op code  hz-*/
  reswitch:
     switch(b) {
     case 0x0f:

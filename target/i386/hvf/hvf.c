@@ -741,6 +741,7 @@ int hvf_vcpu_exec(CPUState *cpu)
                 env->hvf_emul->fetch_rip = rip;
 
                 decode_instruction(env, &decode);
+                printf("hz- hvf.c 744  before exec_instruction() ");
                 exec_instruction(env, &decode);
                 store_regs(cpu);
                 break;
@@ -784,6 +785,7 @@ int hvf_vcpu_exec(CPUState *cpu)
 
             decode_instruction(env, &decode);
             assert(ins_len == decode.len);
+            printf("hz- hvf.c 788  before exec_instruction() ");
             exec_instruction(env, &decode);
             store_regs(cpu);
 
@@ -889,6 +891,7 @@ int hvf_vcpu_exec(CPUState *cpu)
             env->hvf_emul->fetch_rip = rip;
 
             decode_instruction(env, &decode);
+            printf("hz- hvf.c 894  before exec_instruction() ");
             exec_instruction(env, &decode);
             store_regs(cpu);
             break;

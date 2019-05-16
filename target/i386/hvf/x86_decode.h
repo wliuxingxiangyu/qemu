@@ -269,7 +269,7 @@ typedef struct x86_decode_op {
     target_ulong ptr;
 } x86_decode_op;
 
-typedef struct x86_decode {
+typedef struct x86_decode { //hz-
     int len;
     uint8_t opcode[4];
     uint8_t opcode_len;
@@ -296,7 +296,6 @@ typedef struct x86_decode {
     struct x86_decode_op op[4];
     bool is_fpu;
     uint32_t flags_mask;
-
 } x86_decode;
 
 uint64_t sign(uint64_t val, int size);

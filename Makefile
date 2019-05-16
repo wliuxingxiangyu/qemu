@@ -12,7 +12,7 @@ UNCHECKED_GOALS := %clean TAGS cscope ctags dist \
     docker docker-% vm-test vm-build-%
 
 print-%:
-	@echo '$*=$($*)'
+	@echo 'hz- $*=$($*)'
 
 # All following code might depend on configuration variables
 ifneq ($(wildcard config-host.mak),)
@@ -31,6 +31,7 @@ git_module_status := $(shell \
 )
 
 ifeq (1,$(git_module_status))
+	@echo  'hz-  git_module_status: $(git_module_status)'
 ifeq (no,$(GIT_UPDATE))
 git-submodule-update:
 	$(call quiet-command, \
@@ -60,7 +61,7 @@ seems to have been used for an in-tree build. You can fix this by running \
 endif
 endif
 
-CONFIG_SOFTMMU := $(if $(filter %-softmmu,$(TARGET_DIRS)),y)
+CONFIG_SOFTMMU := $(if $(filter %-softmmu,$(TARGET_DIRS)),y,echo'hz- target_dir: $(TARGET_DIRS) ')
 CONFIG_USER_ONLY := $(if $(filter %-user,$(TARGET_DIRS)),y)
 CONFIG_XEN := $(CONFIG_XEN_BACKEND)
 CONFIG_ALL=y
