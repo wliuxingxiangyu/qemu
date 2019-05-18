@@ -131,6 +131,7 @@ int main(int argc, char **argv)
 #include "qapi/qapi-commands-ui.h"
 #include "qapi/qmp/qerror.h"
 #include "sysemu/iothread.h"
+#include <stdio.h>
 
 #define MAX_VIRTIO_CONSOLES 1
 
@@ -3004,6 +3005,11 @@ static void register_global_properties(MachineState *ms)
 
 int main(int argc, char **argv, char **envp)
 {
+	printf("hz-    vl.c     3008  main()  \n");
+	FILE * vl_file = fopen("vl_file","w");//qemu(master) 运行的目录
+	if(vl_file != NULL){
+		fprintf(vl_file,"hz-   vl.c  3012  main()   \n");
+	}
     int i;
     int snapshot, linux_boot;
     const char *initrd_filename;

@@ -3034,6 +3034,7 @@ static const struct SSEOpHelper_eppi sse_op_table7[256] = {
 static void gen_sse(CPUX86State *env, DisasContext *s, int b,
                     target_ulong pc_start, int rex_r)
 {
+	printf("hz-  translate.c  gen_sse ()  b=%d", b);
     int b1, op1_offset, op2_offset, is_xmm, val;
     int modrm, mod, rm, reg;
     SSEFunc_0_epp sse_fn_epp;

@@ -71,8 +71,10 @@
 #include "sysemu/accel.h"
 #include "sysemu/sysemu.h"
 #include "target/i386/cpu.h"
+#include <stdio.h>
 
 HVFState *hvf_state;
+FILE * exec_file;
 
 static void assert_hvf_ok(hv_return_t ret)
 {
@@ -742,6 +744,9 @@ int hvf_vcpu_exec(CPUState *cpu)
 
                 decode_instruction(env, &decode);
                 printf("hz- hvf.c 744  before exec_instruction() ");
+                if(exec_file != NULL){
+                	fprintf(exec_file,"hz- hvf.c 744  before exec_instruction() ");
+                }
                 exec_instruction(env, &decode);
                 store_regs(cpu);
                 break;
@@ -786,6 +791,9 @@ int hvf_vcpu_exec(CPUState *cpu)
             decode_instruction(env, &decode);
             assert(ins_len == decode.len);
             printf("hz- hvf.c 788  before exec_instruction() ");
+            if(exec_file != NULL){
+            	fprintf(exec_file,"hz- hvf.c 788  before exec_instruction() ");
+            }
             exec_instruction(env, &decode);
             store_regs(cpu);
 
@@ -892,6 +900,9 @@ int hvf_vcpu_exec(CPUState *cpu)
 
             decode_instruction(env, &decode);
             printf("hz- hvf.c 894  before exec_instruction() ");
+            if(exec_file != NULL){
+            	fprintf(exec_file,"hz- hvf.c 894  before exec_instruction() ");
+            }
             exec_instruction(env, &decode);
             store_regs(cpu);
             break;
@@ -933,7 +944,7 @@ int hvf_vcpu_exec(CPUState *cpu)
 
 bool hvf_allowed;
 
-static int hvf_accel_init(MachineState *ms)
+static int hvf_accel_init(MachineState *ms)//hz- init
 {
     int x;
     hv_return_t ret;
@@ -951,6 +962,11 @@ static int hvf_accel_init(MachineState *ms)
     }
   
     hvf_state = s;
+//    exec_file = fopen("/home/iie/ws/qemu/gitqemu/qemu/exec_file.log","w");//hz-
+    exec_file = fopen("exec_file.log","w");//hz-
+    if(exec_file != NULL){
+    	fprintf(exec_file,"hz- hvf.c 967  before exec_instruction() ");
+    }
     cpu_interrupt_handler = hvf_handle_interrupt;
     memory_listener_register(&hvf_memory_listener, &address_space_memory);
     return 0;
