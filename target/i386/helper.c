@@ -502,7 +502,7 @@ void x86_cpu_dump_state(CPUState *cs, FILE *f, fprintf_function cpu_fprintf,
                     env->cr[2],
                     env->cr[3],
                     (uint32_t)env->cr[4]);
-        printf("hz-  helper.c   505  x86_cpu_dump_state()   CR3=%016", env->cr[3]);
+        printf("hz-  helper.c   505  x86_cpu_dump_state()   CR3=%zu\n", env->cr[3]);
         for(i = 0; i < 4; i++)
             cpu_fprintf(f, "DR%d=%016" PRIx64 " ", i, env->dr[i]);
         cpu_fprintf(f, "\nDR6=%016" PRIx64 " DR7=%016" PRIx64 "\n",
@@ -519,7 +519,7 @@ void x86_cpu_dump_state(CPUState *cs, FILE *f, fprintf_function cpu_fprintf,
                     (uint32_t)env->cr[2],
                     (uint32_t)env->cr[3],
                     (uint32_t)env->cr[4]);
-        printf("hz-  helper.c   522  x86_cpu_dump_state()   CR3=%016", env->cr[3]);
+        printf("hz-  helper.c   522  x86_cpu_dump_state()   CR3=%zu\n", env->cr[3]);
         for(i = 0; i < 4; i++) {
             cpu_fprintf(f, "DR%d=" TARGET_FMT_lx " ", i, env->dr[i]);
         }

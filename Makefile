@@ -31,7 +31,7 @@ git_module_status := $(shell \
 )
 
 ifeq (1,$(git_module_status))
-	@echo  'hz-  git_module_status: $(git_module_status)'
+# @echo  'hz-  git_module_status: $(git_module_status)'
 ifeq (no,$(GIT_UPDATE))
 git-submodule-update:
 	$(call quiet-command, \

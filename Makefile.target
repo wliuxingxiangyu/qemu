@@ -15,7 +15,7 @@ QEMU_CFLAGS += -iquote .. -iquote $(SRC_PATH)/target/$(TARGET_BASE_ARCH) -DNEED_
 
 QEMU_CFLAGS+=-iquote $(SRC_PATH)/include
 
-@echo "hz-   CONFIG_USER_ONLY=" $(CONFIG_USER_ONLY)
+# @echo "hz-   CONFIG_USER_ONLY=" $(CONFIG_USER_ONLY)
 ifdef CONFIG_USER_ONLY
 # user emulator name
 QEMU_PROG=qemu-$(TARGET_NAME)
