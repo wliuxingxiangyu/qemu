@@ -662,6 +662,7 @@ static void exec_lods(struct CPUX86State *env, struct x86_decode *decode)
 
 void simulate_rdmsr(struct CPUState *cpu)
 {
+	printf("hz-    x86_emu.c     665  simulate_rdmsr()  \n");
     X86CPU *x86_cpu = X86_CPU(cpu);
     CPUX86State *env = &x86_cpu->env;
     uint32_t msr = ECX(env);
@@ -761,7 +762,7 @@ void simulate_wrmsr(struct CPUState *cpu)
 {
     X86CPU *x86_cpu = X86_CPU(cpu);
     CPUX86State *env = &x86_cpu->env;
-    uint32_t msr = ECX(env);
+    uint32_t msr = ECX(env);//hz-
     uint64_t data = ((uint64_t)EDX(env) << 32) | EAX(env);
 
     switch (msr) {

@@ -656,6 +656,7 @@ static void hvf_store_events(CPUState *cpu, uint32_t ins_len, uint64_t idtvec_in
 
 int hvf_vcpu_exec(CPUState *cpu)
 {
+	printf("hz-    hvf.c     659  hvf_vcpu_exec()  \n");
     X86CPU *x86_cpu = X86_CPU(cpu);
     CPUX86State *env = &x86_cpu->env;
     int ret = 0;
@@ -844,9 +845,10 @@ int hvf_vcpu_exec(CPUState *cpu)
             ret = EXCP_INTERRUPT;
             break;
         case EXIT_REASON_RDMSR:
-        case EXIT_REASON_WRMSR:
+        case EXIT_REASON_WRMSR://hz-
         {
             load_regs(cpu);
+            printf("hz-    hvf.c     850  hvf_vcpu_exec()  EXIT_REASON \n");
             if (exit_reason == EXIT_REASON_RDMSR) {
                 simulate_rdmsr(cpu);
             } else {

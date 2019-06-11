@@ -861,6 +861,7 @@ static Error *vmx_mig_blocker;
 
 int kvm_arch_init_vcpu(CPUState *cs)
 {
+	printf("hz-    kvm.c     864  kvm_arch_init_vcpu()  \n");
     struct {
         struct kvm_cpuid2 cpuid;
         struct kvm_cpuid_entry2 entries[KVM_MAX_CPUID_ENTRIES];
@@ -1410,6 +1411,7 @@ static int kvm_get_supported_feature_msrs(KVMState *s)
 
 static int kvm_get_supported_msrs(KVMState *s)
 {
+	printf("hz-    kvm.c     1414  kvm_get_supported_msrs()  \n");
     static int kvm_supported_msrs;
     int ret = 0;
 

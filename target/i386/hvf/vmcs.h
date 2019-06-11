@@ -64,7 +64,7 @@
 #define VMCS_HOST_GS_SELECTOR 0x00000C0A
 #define VMCS_HOST_TR_SELECTOR 0x00000C0C
 
-/* 64-bit control fields */
+/* 64-bit control fields hz-*/
 #define VMCS_IO_BITMAP_A 0x00002000
 #define VMCS_IO_BITMAP_B 0x00002002
 #define VMCS_MSR_BITMAP 0x00002004

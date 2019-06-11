@@ -1092,7 +1092,7 @@ static const struct dis386 dis386_twobyte[] = {
   { PREGRP3 },
   { PREGRP93 },
   { PREGRP94 },
-  /* 30 */
+  /* 30 hz-*/
   { "wrmsr",		{ XX } },
   { "rdtsc",		{ XX } },
   { "rdmsr",		{ XX } },

@@ -4575,6 +4575,7 @@ void cpu_x86_cpuid(CPUX86State *env, uint32_t index, uint32_t count,
 /* CPUClass::reset() */
 static void x86_cpu_reset(CPUState *s)
 {
+	printf("hz-   cpu.c     4578  x86_cpu_reset()  \n");
     X86CPU *cpu = X86_CPU(s);
     X86CPUClass *xcc = X86_CPU_GET_CLASS(cpu);
     CPUX86State *env = &cpu->env;

@@ -35,7 +35,7 @@ static void kvm_put_apic_state(APICCommonState *s, struct kvm_lapic_state *kapic
     int i;
 
     memset(kapic, 0, sizeof(*kapic));
-    if (kvm_has_x2apic_api() && s->apicbase & MSR_IA32_APICBASE_EXTD) {
+    if (kvm_has_x2apic_api() && s->apicbase & MSR_IA32_APICBASE_EXTD) {//hz-
         kvm_apic_set_reg(kapic, 0x2, s->initial_apic_id);
     } else {
         kvm_apic_set_reg(kapic, 0x2, s->id << 24);
