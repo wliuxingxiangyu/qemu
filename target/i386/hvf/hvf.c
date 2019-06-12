@@ -423,6 +423,7 @@ static MemoryListener hvf_memory_listener = {
 };
 
 void hvf_reset_vcpu(CPUState *cpu) {
+	printf("hz- hvf_reset_vcpu.c  hvf_reset_vcpu() 426");
 
     /* TODO: this shouldn't be needed; there is already a call to
      * cpu_synchronize_all_post_reset in vl.c

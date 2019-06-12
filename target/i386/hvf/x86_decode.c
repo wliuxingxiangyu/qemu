@@ -707,7 +707,7 @@ static void decode_db_4(CPUX86State *env, struct x86_decode *decode)
 #define RFLAGS_MASK_DF      (RFLAGS_DF)
 #define RFLAGS_MASK_ZF      (RFLAGS_ZF)
 
-struct decode_tbl _1op_inst[] = {
+struct decode_tbl _1op_inst[] = {//hz- decode each instruction group.
     {0x0, X86_DECODE_CMD_ADD, 1, true, decode_modrm_rm, decode_modrm_reg, NULL,
      NULL, NULL, RFLAGS_MASK_OSZAPC},
     {0x1, X86_DECODE_CMD_ADD, 0, true, decode_modrm_rm, decode_modrm_reg, NULL,
@@ -2111,6 +2111,7 @@ uint32_t decode_instruction(CPUX86State *env, struct x86_decode *decode)
 void init_decoder()
 {
     int i;
+    printf("hz- x86_decode.c init_decoder() 2114");
     
     for (i = 0; i < ARRAY_SIZE(_decode_tbl2); i++) {
         memcpy(_decode_tbl1, &invl_inst, sizeof(invl_inst));

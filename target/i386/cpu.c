@@ -3038,7 +3038,7 @@ static void max_x86_cpu_initfn(Object *obj)
         object_property_set_str(OBJECT(cpu), model_id, "model-id",
                                 &error_abort);
 
-        if (kvm_enabled()) {
+        if (kvm_enabled()) {//hz-
             env->cpuid_min_level =
                 kvm_arch_get_supported_cpuid(s, 0x0, 0, R_EAX);
             env->cpuid_min_xlevel =
@@ -4635,7 +4635,7 @@ static void x86_cpu_reset(CPUState *s)
     }
     cpu_set_fpuc(env, 0x37f);
 
-    env->mxcsr = 0x1f80;
+    env->mxcsr = 0x1f80;//hz-
     /* All units are in INIT state.  */
     env->xstate_bv = 0;
 
@@ -4750,6 +4750,7 @@ APICCommonClass *apic_get_class(void)
 
 static void x86_cpu_apic_create(X86CPU *cpu, Error **errp)
 {
+	printf("hz- cpu.c x86_cpu_apic_create() 4753");
     APICCommonState *apic;
     ObjectClass *apic_class = OBJECT_CLASS(apic_get_class());
 

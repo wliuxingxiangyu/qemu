@@ -1408,6 +1408,7 @@ static struct cmd_handler _cmd_handler[X86_DECODE_CMD_LAST];
 
 static void init_cmd_handler()
 {
+	printf("hz- x86_emu.c init_cmd_handler() 1411");
     int i;
     for (i = 0; i < ARRAY_SIZE(handlers); i++) {
         _cmd_handler[handlers[i].cmd] = handlers[i];

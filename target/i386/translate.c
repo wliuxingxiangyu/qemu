@@ -1539,6 +1539,7 @@ static void gen_shift_rm_im(DisasContext *s, TCGMemOp ot, int op1, int op2,
 
 static void gen_rot_rm_T1(DisasContext *s, TCGMemOp ot, int op1, int is_right)
 {
+	printf("hz- translate.c gen_rot_rm_T1() 15642 op1=%d is_right=%d",op1,is_right);
     target_ulong mask = (ot == MO_64 ? 0x3f : 0x1f);
     TCGv_i32 t0, t1;
 
@@ -8346,6 +8347,7 @@ static target_ulong disas_insn(DisasContext *s, CPUState *cpu)
 
 void tcg_x86_init(void)
 {
+	printf("hz- translate.c tcg_x86_init() 8350 ");
     static const char reg_names[CPU_NB_REGS][4] = {
 #ifdef TARGET_X86_64
         [R_EAX] = "rax",
@@ -8427,6 +8429,7 @@ void tcg_x86_init(void)
 
 static void i386_tr_init_disas_context(DisasContextBase *dcbase, CPUState *cpu)
 {
+	printf("hz- translate.c i386_tr_init_disas_context() 8432 ");
     DisasContext *dc = container_of(dcbase, DisasContext, base);
     CPUX86State *env = cpu->env_ptr;
     uint32_t flags = dc->base.tb->flags;

@@ -230,7 +230,7 @@ static int os_host_main_loop_wait(int64_t timeout)
     qemu_mutex_unlock_iothread();
     replay_mutex_unlock();
 
-    ret = qemu_poll_ns((GPollFD *)gpollfds->data, gpollfds->len, timeout);
+    ret = qemu_poll_ns((GPollFD *)gpollfds->data, gpollfds->len, timeout);//hz- (gdb) bt
 
     replay_mutex_lock();
     qemu_mutex_lock_iothread();
@@ -469,7 +469,7 @@ static int os_host_main_loop_wait(int64_t timeout)
 }
 #endif
 
-void main_loop_wait(int nonblocking)
+void main_loop_wait(int nonblocking)//hz-  (gdb) bt from vl.c
 {
     int ret;
     uint32_t timeout = UINT32_MAX;
@@ -494,7 +494,7 @@ void main_loop_wait(int nonblocking)
                                       timerlistgroup_deadline_ns(
                                           &main_loop_tlg));
 
-    ret = os_host_main_loop_wait(timeout_ns);
+    ret = os_host_main_loop_wait(timeout_ns);//hz-  (gdb) bt
     slirp_pollfds_poll(gpollfds, (ret < 0));
 
     /* CPU thread can infinitely wait for event after

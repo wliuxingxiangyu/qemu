@@ -336,6 +336,7 @@ static struct kvm_cpuid_entry2 *cpuid_find_entry(struct kvm_cpuid2 *cpuid,
 uint32_t kvm_arch_get_supported_cpuid(KVMState *s, uint32_t function,
                                       uint32_t index, int reg)
 {
+	printf("hz- kvm.c kvm_arch_get_supported_cpuid() 339 \n");
     struct kvm_cpuid2 *cpuid;
     uint32_t ret = 0;
     uint32_t cpuid_1_edx;
@@ -424,6 +425,7 @@ uint32_t kvm_arch_get_supported_cpuid(KVMState *s, uint32_t function,
 
 uint32_t kvm_arch_get_supported_msr_feature(KVMState *s, uint32_t index)
 {
+	printf("hz- kvm.c kvm_arch_get_supported_msr_feature() 428 \n");
     struct {
         struct kvm_msrs info;
         struct kvm_msr_entry entries[1];
@@ -1424,7 +1426,7 @@ static int kvm_get_supported_msrs(KVMState *s)
         /* Obtain MSR list from KVM.  These are the MSRs that we must
          * save/restore */
         msr_list.nmsrs = 0;
-        ret = kvm_ioctl(s, KVM_GET_MSR_INDEX_LIST, &msr_list);
+        ret = kvm_ioctl(s, KVM_GET_MSR_INDEX_LIST, &msr_list);//hz-
         if (ret < 0 && ret != -E2BIG) {
             return ret;
         }
@@ -1435,7 +1437,7 @@ static int kvm_get_supported_msrs(KVMState *s)
                                               sizeof(msr_list.indices[0])));
 
         kvm_msr_list->nmsrs = msr_list.nmsrs;
-        ret = kvm_ioctl(s, KVM_GET_MSR_INDEX_LIST, kvm_msr_list);
+        ret = kvm_ioctl(s, KVM_GET_MSR_INDEX_LIST, kvm_msr_list);//hz-
         if (ret >= 0) {
             int i;
 
@@ -1952,6 +1954,7 @@ static int kvm_put_tscdeadline_msr(X86CPU *cpu)
  */
 static int kvm_put_msr_feature_control(X86CPU *cpu)
 {
+	printf("hz-    kvm.c   kvm_put_msr_feature_control()  \n");
     int ret;
 
     if (!has_msr_feature_control) {
@@ -1970,6 +1973,7 @@ static int kvm_put_msr_feature_control(X86CPU *cpu)
 
 static int kvm_put_msrs(X86CPU *cpu, int level)
 {
+	printf("hz-    kvm.c   kvm_put_msrs()  \n");
     CPUX86State *env = &cpu->env;
     int i;
     int ret;
@@ -3541,6 +3545,7 @@ static int kvm_handle_debug(X86CPU *cpu,
 
 void kvm_arch_update_guest_debug(CPUState *cpu, struct kvm_guest_debug *dbg)
 {
+	printf("hz- kvm.c kvm_arch_update_guest_debug() \n");
     const uint8_t type_code[] = {
         [GDB_BREAKPOINT_HW] = 0x0,
         [GDB_WATCHPOINT_WRITE] = 0x1,
@@ -3578,6 +3583,7 @@ static bool host_supports_vmx(void)
 
 int kvm_arch_handle_exit(CPUState *cs, struct kvm_run *run)
 {
+	printf("hz- kvm.c  kvm_arch_handle_exit() \n");
     X86CPU *cpu = X86_CPU(cs);
     uint64_t code;
     int ret;

@@ -1915,7 +1915,7 @@ static bool main_loop_should_exit(void)
     return false;
 }
 
-static void main_loop(void)
+static void main_loop(void)//hz-  (gdb) bt
 {
 #ifdef CONFIG_PROFILER
     int64_t ti;
@@ -1924,7 +1924,7 @@ static void main_loop(void)
 #ifdef CONFIG_PROFILER
         ti = profile_getclock();
 #endif
-        main_loop_wait(false);
+        main_loop_wait(false);//hz-  (gdb) bt
 #ifdef CONFIG_PROFILER
         dev_time += profile_getclock() - ti;
 #endif

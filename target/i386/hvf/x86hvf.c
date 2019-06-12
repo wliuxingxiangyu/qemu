@@ -219,6 +219,7 @@ void hvf_get_segments(CPUState *cpu_state)
 
 void hvf_get_msrs(CPUState *cpu_state)
 {
+	printf("hz- x86hvf.c vf_get_msrs() 222");
     CPUX86State *env = &X86_CPU(cpu_state)->env;
     uint64_t tmp;
     
