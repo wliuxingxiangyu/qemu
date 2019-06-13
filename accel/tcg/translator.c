@@ -25,6 +25,7 @@
    For most targets, (2) is at the end of translate_insn.  */
 void translator_loop_temp_check(DisasContextBase *db)
 {
+	printf("hz- accel/tcg/translator.c translator_loop_temp_check()");
     if (tcg_check_temp_count()) {
         qemu_log("warning: TCG temporary leaks before "
                  TARGET_FMT_lx "\n", db->pc_next);
@@ -34,6 +35,7 @@ void translator_loop_temp_check(DisasContextBase *db)
 void translator_loop(const TranslatorOps *ops, DisasContextBase *db,
                      CPUState *cpu, TranslationBlock *tb)
 {
+	printf("hz- accel/tcg/translator.c translator_loop()");
     int bp_insn = 0;
 
     /* Initialize DisasContext */

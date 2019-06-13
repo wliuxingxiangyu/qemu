@@ -2150,6 +2150,7 @@ int kvm_vcpu_ioctl(CPUState *cpu, int type, ...)
 
 int kvm_device_ioctl(int fd, int type, ...)
 {
+	printf("hz- kvm-all.c  2153 kvm_device_ioctl()");
     int ret;
     void *arg;
     va_list ap;

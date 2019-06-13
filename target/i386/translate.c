@@ -78,6 +78,7 @@ static TCGv cpu_regs[CPU_NB_REGS];
 static TCGv cpu_seg_base[6];
 static TCGv_i64 cpu_bndl[4];
 static TCGv_i64 cpu_bndu[4];
+//File * translate_log_file;
 
 #include "exec/gen-icount.h"
 
@@ -233,6 +234,7 @@ static const uint8_t cc_op_live[CC_OP_NB] = {
 
 static void set_cc_op(DisasContext *s, CCOp op)
 {
+	printf("hz- target/i386/translate.c  set_cc_op() \n");
     int dead;
 
     if (s->cc_op == op) {
@@ -1539,7 +1541,7 @@ static void gen_shift_rm_im(DisasContext *s, TCGMemOp ot, int op1, int op2,
 
 static void gen_rot_rm_T1(DisasContext *s, TCGMemOp ot, int op1, int is_right)
 {
-	printf("hz- translate.c gen_rot_rm_T1() 15642 op1=%d is_right=%d",op1,is_right);
+	printf("hz- translate.c gen_rot_rm_T1() 15642 op1=%d is_right=%d \n",op1,is_right);
     target_ulong mask = (ot == MO_64 ? 0x3f : 0x1f);
     TCGv_i32 t0, t1;
 
@@ -3035,7 +3037,7 @@ static const struct SSEOpHelper_eppi sse_op_table7[256] = {
 static void gen_sse(CPUX86State *env, DisasContext *s, int b,
                     target_ulong pc_start, int rex_r)
 {
-	printf("hz-  translate.c  gen_sse ()  b=%d", b);
+	printf("hz-  translate.c  gen_sse ()  b=%d \n", b);
     int b1, op1_offset, op2_offset, is_xmm, val;
     int modrm, mod, rm, reg;
     SSEFunc_0_epp sse_fn_epp;
@@ -8347,7 +8349,11 @@ static target_ulong disas_insn(DisasContext *s, CPUState *cpu)
 
 void tcg_x86_init(void)
 {
-	printf("hz- translate.c tcg_x86_init() 8350 ");
+	printf("hz- ----target/i386/translate.c tcg_x86_init() 8350 \n");
+	FILE * vl_file = fopen("translate_hz_log","w");
+	if(vl_file != NULL){
+		fprintf(vl_file,"hz- --target/i386/translate.c tcg_x86_init() 8350 \n");
+	}
     static const char reg_names[CPU_NB_REGS][4] = {
 #ifdef TARGET_X86_64
         [R_EAX] = "rax",
@@ -8429,7 +8435,7 @@ void tcg_x86_init(void)
 
 static void i386_tr_init_disas_context(DisasContextBase *dcbase, CPUState *cpu)
 {
-	printf("hz- translate.c i386_tr_init_disas_context() 8432 ");
+	printf("hz- target/i386/translate.c i386_tr_init_disas_context() 8432 \n");
     DisasContext *dc = container_of(dcbase, DisasContext, base);
     CPUX86State *env = cpu->env_ptr;
     uint32_t flags = dc->base.tb->flags;
@@ -8503,6 +8509,7 @@ static void i386_tr_tb_start(DisasContextBase *db, CPUState *cpu)
 
 static void i386_tr_insn_start(DisasContextBase *dcbase, CPUState *cpu)
 {
+	printf("hz- target/i386/translate.c  i386_tr_insn_start() \n");
     DisasContext *dc = container_of(dcbase, DisasContext, base);
 
     tcg_gen_insn_start(dc->base.pc_next, dc->cc_op);
@@ -8511,6 +8518,7 @@ static void i386_tr_insn_start(DisasContextBase *dcbase, CPUState *cpu)
 static bool i386_tr_breakpoint_check(DisasContextBase *dcbase, CPUState *cpu,
                                      const CPUBreakpoint *bp)
 {
+	printf("hz- target/i386/translate.c  i386_tr_breakpoint_check() \n");
     DisasContext *dc = container_of(dcbase, DisasContext, base);
     /* If RF is set, suppress an internally generated breakpoint.  */
     int flags = dc->base.tb->flags & HF_RF_MASK ? BP_GDB : BP_ANY;
@@ -8530,6 +8538,7 @@ static bool i386_tr_breakpoint_check(DisasContextBase *dcbase, CPUState *cpu,
 
 static void i386_tr_translate_insn(DisasContextBase *dcbase, CPUState *cpu)
 {
+	printf("hz- target/i386/translate.c  i386_tr_translate_insn() \n");
     DisasContext *dc = container_of(dcbase, DisasContext, base);
     target_ulong pc_next = disas_insn(dc, cpu);
 
@@ -8561,6 +8570,7 @@ static void i386_tr_translate_insn(DisasContextBase *dcbase, CPUState *cpu)
 
 static void i386_tr_tb_stop(DisasContextBase *dcbase, CPUState *cpu)
 {
+	printf("hz- target/i386/translate.c  i386_tr_tb_stop() \n");
     DisasContext *dc = container_of(dcbase, DisasContext, base);
 
     if (dc->base.is_jmp == DISAS_TOO_MANY) {
@@ -8572,6 +8582,7 @@ static void i386_tr_tb_stop(DisasContextBase *dcbase, CPUState *cpu)
 static void i386_tr_disas_log(const DisasContextBase *dcbase,
                               CPUState *cpu)
 {
+	printf("hz- target/i386/translate.c  i386_tr_disas_log() \n");
     DisasContext *dc = container_of(dcbase, DisasContext, base);
 
     qemu_log("IN: %s\n", lookup_symbol(dc->base.pc_first));
@@ -8591,6 +8602,7 @@ static const TranslatorOps i386_tr_ops = {
 /* generate intermediate code for basic block 'tb'.  */
 void gen_intermediate_code(CPUState *cpu, TranslationBlock *tb)
 {
+	printf("hz- target/i386/translate.c  gen_intermediate_code() \n");
     DisasContext dc;
 
     translator_loop(&i386_tr_ops, &dc.base, cpu, tb);
@@ -8599,6 +8611,7 @@ void gen_intermediate_code(CPUState *cpu, TranslationBlock *tb)
 void restore_state_to_opc(CPUX86State *env, TranslationBlock *tb,
                           target_ulong *data)
 {
+	printf("hz- target/i386/translate.c  restore_state_to_opc() \n");
     int cc_op = data[1];
     env->eip = data[0] - tb->cs_base;
     if (cc_op != CC_OP_DYNAMIC) {

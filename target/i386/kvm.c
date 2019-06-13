@@ -336,7 +336,7 @@ static struct kvm_cpuid_entry2 *cpuid_find_entry(struct kvm_cpuid2 *cpuid,
 uint32_t kvm_arch_get_supported_cpuid(KVMState *s, uint32_t function,
                                       uint32_t index, int reg)
 {
-	printf("hz- kvm.c kvm_arch_get_supported_cpuid() 339 \n");
+	// printf("hz- kvm.c kvm_arch_get_supported_cpuid() 339 \n");// to much log
     struct kvm_cpuid2 *cpuid;
     uint32_t ret = 0;
     uint32_t cpuid_1_edx;
@@ -1973,7 +1973,7 @@ static int kvm_put_msr_feature_control(X86CPU *cpu)
 
 static int kvm_put_msrs(X86CPU *cpu, int level)
 {
-	printf("hz-    kvm.c   kvm_put_msrs()  \n");
+//	printf("hz-    kvm.c   kvm_put_msrs()  \n");// too much log
     CPUX86State *env = &cpu->env;
     int i;
     int ret;

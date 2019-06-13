@@ -4575,7 +4575,7 @@ void cpu_x86_cpuid(CPUX86State *env, uint32_t index, uint32_t count,
 /* CPUClass::reset() */
 static void x86_cpu_reset(CPUState *s)
 {
-	printf("hz-   cpu.c     4578  x86_cpu_reset()  \n");
+	printf("hz-   target/i386/cpu.c      4578  x86_cpu_reset()  \n");
     X86CPU *cpu = X86_CPU(s);
     X86CPUClass *xcc = X86_CPU_GET_CLASS(cpu);
     CPUX86State *env = &cpu->env;
@@ -4750,7 +4750,7 @@ APICCommonClass *apic_get_class(void)
 
 static void x86_cpu_apic_create(X86CPU *cpu, Error **errp)
 {
-	printf("hz- cpu.c x86_cpu_apic_create() 4753");
+	printf("hz- target/i386/cpu.c  x86_cpu_apic_create() 4753 \n");
     APICCommonState *apic;
     ObjectClass *apic_class = OBJECT_CLASS(apic_get_class());
 
@@ -5785,8 +5785,9 @@ static Property x86_cpu_properties[] = {
 
 static void x86_cpu_common_class_init(ObjectClass *oc, void *data)
 {
+	printf("hz- target/i386/cpu.c  5788 x86_cpu_common_class_init \n");
     X86CPUClass *xcc = X86_CPU_CLASS(oc);
-    CPUClass *cc = CPU_CLASS(oc);
+    CPUClass *cc = CPU_CLASS(oc);// hz-
     DeviceClass *dc = DEVICE_CLASS(oc);
 
     device_class_set_parent_realize(dc, x86_cpu_realizefn,
@@ -5839,9 +5840,15 @@ static void x86_cpu_common_class_init(ObjectClass *oc, void *data)
 #endif
     cc->cpu_exec_enter = x86_cpu_exec_enter;
     cc->cpu_exec_exit = x86_cpu_exec_exit;
+
+    printf("hz- target/i386/cpu.c x86_cpu_common_class_init()  \n");
 #ifdef CONFIG_TCG
+    printf("hz- target/i386/cpu.c ---before--- CONFIG_TCG is defined  \n");
     cc->tcg_initialize = tcg_x86_init;
+    printf("hz- target/i386/cpu.c  ---after--- \n");
 #endif
+
+    printf("hz- target/i386/cpu.c x86_disas_set_info \n");
     cc->disas_set_info = x86_disas_set_info;
 
     dc->user_creatable = true;
@@ -5861,6 +5868,7 @@ static const TypeInfo x86_cpu_type_info = {
 /* "base" CPU model, used by query-cpu-model-expansion */
 static void x86_cpu_base_class_init(ObjectClass *oc, void *data)
 {
+	printf("hz- target/i386/cpu.c  x86_cpu_base_class_init()  \n");
     X86CPUClass *xcc = X86_CPU_CLASS(oc);
 
     xcc->static_model = true;
@@ -5879,6 +5887,7 @@ static void x86_cpu_register_types(void)
 {
     int i;
 
+    printf("hz- target/i386/cpu.c  x86_cpu_register_types()  \n");
     type_register_static(&x86_cpu_type_info);
     for (i = 0; i < ARRAY_SIZE(builtin_x86_defs); i++) {
         x86_register_cpudef_type(&builtin_x86_defs[i]);

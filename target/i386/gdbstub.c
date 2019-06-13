@@ -41,7 +41,7 @@ static const int gpr_map32[8] = { 0, 1, 2, 3, 4, 5, 6, 7 };
 
 int x86_cpu_gdb_read_register(CPUState *cs, uint8_t *mem_buf, int n)
 {
-	printf("hz- gdbstub.c  x86_cpu_gdb_read_register() \n");
+	// printf("hz- gdbstub.c  x86_cpu_gdb_read_register() \n");
     X86CPU *cpu = X86_CPU(cs);
     CPUX86State *env = &cpu->env;
 
@@ -133,7 +133,7 @@ int x86_cpu_gdb_read_register(CPUState *cs, uint8_t *mem_buf, int n)
 
 static int x86_cpu_gdb_load_seg(X86CPU *cpu, int sreg, uint8_t *mem_buf)
 {
-	printf("hz- gdbstub.c  x86_cpu_gdb_load_seg() \n");
+	// printf("hz- gdbstub.c  x86_cpu_gdb_load_seg() \n");
     CPUX86State *env = &cpu->env;
     uint16_t selector = ldl_p(mem_buf);
 
@@ -164,7 +164,7 @@ static int x86_cpu_gdb_load_seg(X86CPU *cpu, int sreg, uint8_t *mem_buf)
 
 int x86_cpu_gdb_write_register(CPUState *cs, uint8_t *mem_buf, int n)
 {
-	printf("hz- gdbstub.c  x86_cpu_gdb_write_register() \n");
+	// printf("hz- gdbstub.c  x86_cpu_gdb_write_register() \n");
     X86CPU *cpu = X86_CPU(cs);
     CPUX86State *env = &cpu->env;
     uint32_t tmp;

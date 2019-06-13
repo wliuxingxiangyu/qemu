@@ -218,6 +218,7 @@ bool parallel_cpus;
 
 static void page_table_config_init(void)
 {
+	printf("hz- accel/tcg/translate-all.c   page_table_config_init()");
     uint32_t v_l1_bits;
 
     assert(TARGET_PAGE_BITS);
@@ -238,6 +239,7 @@ static void page_table_config_init(void)
 
 void cpu_gen_init(void)
 {
+	printf("hz- accel/tcg/translate-all.c   cpu_gen_init()");
     tcg_context_init(&tcg_init_ctx);
 }
 

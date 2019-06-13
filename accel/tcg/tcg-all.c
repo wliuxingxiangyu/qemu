@@ -86,6 +86,7 @@ static const TypeInfo tcg_accel_type = {
 
 static void register_accel_types(void)
 {
+	printf("hz- accel/tcg/tcg-all.c   register_accel_types() \n");
     type_register_static(&tcg_accel_type);
 }
 

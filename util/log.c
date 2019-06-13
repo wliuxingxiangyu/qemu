@@ -35,6 +35,7 @@ static GArray *debug_regions;
 /* Return the number of characters emitted.  */
 int qemu_log(const char *fmt, ...)
 {
+	printf("hz- log.c 38 qemu_log() \n");
     int ret = 0;
     if (qemu_logfile) {
         va_list ap;
@@ -55,6 +56,7 @@ static bool log_uses_own_buffers;
 /* enable or disable low levels log */
 void qemu_set_log(int log_flags)
 {
+	printf("hz- log.c 59 qemu_set_log() \n");
     qemu_loglevel = log_flags;
 #ifdef CONFIG_TRACE_LOG
     qemu_loglevel |= LOG_TRACE;
@@ -112,6 +114,7 @@ void qemu_log_needs_buffers(void)
  */
 void qemu_set_log_filename(const char *filename, Error **errp)
 {
+	printf("hz- log.c 117 qemu_set_log_filename() \n");
     char *pidstr;
     g_free(logfilename);
 
@@ -280,6 +283,7 @@ const QEMULogItem qemu_log_items[] = {
 /* takes a comma separated list of log masks. Return 0 if error. */
 int qemu_str_to_log_mask(const char *str)
 {
+	printf("hz- log.c  qemu_str_to_log_mask() \n");
     const QEMULogItem *item;
     int mask = 0;
     char **parts = g_strsplit(str, ",", 0);
@@ -317,6 +321,7 @@ int qemu_str_to_log_mask(const char *str)
 
 void qemu_print_log_usage(FILE *f)
 {
+	printf("hz- log.c  qemu_print_log_usage() \n");
     const QEMULogItem *item;
     fprintf(f, "Log items (comma separated):\n");
     for (item = qemu_log_items; item->mask != 0; item++) {

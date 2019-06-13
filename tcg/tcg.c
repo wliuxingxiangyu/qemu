@@ -890,6 +890,7 @@ static TCGTemp *tcg_global_reg_new_internal(TCGContext *s, TCGType type,
 
 void tcg_context_init(TCGContext *s)
 {
+	printf("hz- tcg.c  893 tcg_context_init() \n");
     int op, total_args, n, i;
     TCGOpDef *def;
     TCGArgConstraint *args_ct;

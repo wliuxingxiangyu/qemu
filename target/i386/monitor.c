@@ -55,6 +55,7 @@ static hwaddr addr_canonical(CPUArchState *env, hwaddr addr)
 static void print_pte(Monitor *mon, CPUArchState *env, hwaddr addr,
                       hwaddr pte, hwaddr mask)
 {
+	printf("hz-   monitor.c  print_pte()  \n");
     addr = addr_canonical(env, addr);
 
     monitor_printf(mon, TARGET_FMT_plx ": " TARGET_FMT_plx
