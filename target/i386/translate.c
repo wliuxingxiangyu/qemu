@@ -234,7 +234,7 @@ static const uint8_t cc_op_live[CC_OP_NB] = {
 
 static void set_cc_op(DisasContext *s, CCOp op)
 {
-	printf("hz- target/i386/translate.c  set_cc_op() \n");
+//	printf("hz- target/i386/translate.c  set_cc_op() \n");
     int dead;
 
     if (s->cc_op == op) {
@@ -3109,7 +3109,7 @@ static void gen_sse(CPUX86State *env, DisasContext *s, int b,
     if (is_xmm)
         reg |= rex_r;
     mod = (modrm >> 6) & 3;
-    if (sse_fn_epp == SSE_SPECIAL) {
+    if (sse_fn_epp == SSE_SPECIAL) {//hz-
         b |= (b1 << 8);
         switch(b) {
         case 0x0e7: /* movntq */
@@ -8509,7 +8509,7 @@ static void i386_tr_tb_start(DisasContextBase *db, CPUState *cpu)
 
 static void i386_tr_insn_start(DisasContextBase *dcbase, CPUState *cpu)
 {
-	printf("hz- target/i386/translate.c  i386_tr_insn_start() \n");
+//	printf("hz- target/i386/translate.c  i386_tr_insn_start() \n");
     DisasContext *dc = container_of(dcbase, DisasContext, base);
 
     tcg_gen_insn_start(dc->base.pc_next, dc->cc_op);
@@ -8538,7 +8538,7 @@ static bool i386_tr_breakpoint_check(DisasContextBase *dcbase, CPUState *cpu,
 
 static void i386_tr_translate_insn(DisasContextBase *dcbase, CPUState *cpu)
 {
-	printf("hz- target/i386/translate.c  i386_tr_translate_insn() \n");
+//	printf("hz- target/i386/translate.c  i386_tr_translate_insn() \n");
     DisasContext *dc = container_of(dcbase, DisasContext, base);
     target_ulong pc_next = disas_insn(dc, cpu);
 
@@ -8570,7 +8570,7 @@ static void i386_tr_translate_insn(DisasContextBase *dcbase, CPUState *cpu)
 
 static void i386_tr_tb_stop(DisasContextBase *dcbase, CPUState *cpu)
 {
-	printf("hz- target/i386/translate.c  i386_tr_tb_stop() \n");
+//	printf("hz- target/i386/translate.c  i386_tr_tb_stop() \n");
     DisasContext *dc = container_of(dcbase, DisasContext, base);
 
     if (dc->base.is_jmp == DISAS_TOO_MANY) {
@@ -8582,7 +8582,7 @@ static void i386_tr_tb_stop(DisasContextBase *dcbase, CPUState *cpu)
 static void i386_tr_disas_log(const DisasContextBase *dcbase,
                               CPUState *cpu)
 {
-	printf("hz- target/i386/translate.c  i386_tr_disas_log() \n");
+//	printf("hz- target/i386/translate.c  i386_tr_disas_log() \n");
     DisasContext *dc = container_of(dcbase, DisasContext, base);
 
     qemu_log("IN: %s\n", lookup_symbol(dc->base.pc_first));

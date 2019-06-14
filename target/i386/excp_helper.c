@@ -368,7 +368,7 @@ static hwaddr get_hphys(CPUState *cs, hwaddr gphys, MMUAccessType access_type,
 int x86_cpu_handle_mmu_fault(CPUState *cs, vaddr addr, int size,
                              int is_write1, int mmu_idx)
 {
-	printf("hz-   exep_helper.c  x86_cpu_handle_mmu_fault()  \n");
+//	printf("hz-   exep_helper.c  x86_cpu_handle_mmu_fault()  \n");//too much log.
     X86CPU *cpu = X86_CPU(cs);
     CPUX86State *env = &cpu->env;
     uint64_t ptep, pte;
