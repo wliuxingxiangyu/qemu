@@ -1,0 +1,30 @@
+---0614---
+hz@hz:~/ws/kvm_demo/qemu$ strings x86_64-softmmu/qemu-system-x86_64 > ../qemu.0614.log
+---
+hz@hz:~/ws/kvm_demo/qemu$ sudo gdb ./x86_64-softmmu/qemu-system-x86_64
+[sudo] password for hz: 
+--
+(gdb) b main
+Breakpoint 1 at 0x45aa07: file vl.c, line 3007.
+(gdb) n
+The program is not being run.
+(gdb) r
+Starting program: /home/hz/ws/kvm_demo/qemu/x86_64-softmmu/qemu-system-x86_64 
+--
+(gdb) b x86_cpu_common_class_init
+Breakpoint 5 at 0x555555926c88: file /home/hz/ws/kvm_demo/qemu/target/i386/cpu.c, line 5788.
+(gdb) c
+Continuing.
+hz- accel/tcg/tcg-all.c   register_accel_types() 
+hz- target/i386/cpu.c  x86_cpu_register_types()  
+
+Thread 1 "qemu-system-x86" hit Breakpoint 5, x86_cpu_common_class_init (
+    oc=0x55555668ec40, data=0x0)
+    at /home/hz/ws/kvm_demo/qemu/target/i386/cpu.c:5788
+5788		printf("hz- target/i386/cpu.c  5788 x86_cpu_common_class_init \n");
+(gdb) 
+--
+(gdb) b cpu.c:5844
+Breakpoint 6 at 0x555555926f75: file /home/hz/ws/kvm_demo/qemu/target/i386/cpu.c, line 5844.
+(gdb) 
+--
